@@ -1,14 +1,14 @@
-import{ useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 export default function SensorDashboard() {
-  const[temperature, setTemperature] = useState("--");
-  const[humidity, setHumidity] = useState("--");
-  useEffect(() = > {
-    const getData = async() = > {
+  const [temperature, setTemperature] = useState("--");
+  const [humidity, setHumidity] = useState("--");
+  useEffect(() => {
+    const getData = async () => {
       try {
         const res = await fetch(
           "https://airborne-plant-pathogens.onrender.com/api/sensor?t=" + Date.now(),
-          { mode: 'cors', cache: "no-store" });
-        if (!res.ok) throw new Error("Network response was not ok");
+          { cache: "no-store" }
+        );
         const data = await res.json();
         setTemperature(data.temperature);
         setHumidity(data.humidity);
@@ -18,25 +18,21 @@ export default function SensorDashboard() {
     };
     getData();
     const interval = setInterval(getData, 2000);
-    return () = > clearInterval(interval);
-  },
-            []);
+    return () => clearInterval(interval);
+  }, []);
   return (
-    <div style = { styles.container }>
-    <h1>
-      ESP8266 Sensor Data</ h1>
-    <div style = { styles.card }>
-    <h2>
-      Temperature</ h2>
-    <p> { temperature } °C</ p>
-    </ div>
-    <div style = { styles.card }>
-    <h2>
-      Humidity</ h2>
-    <p>{ humidity }
-    % </ p>
-    </ div>
-    </ div>);
+    <div style={styles.container}>
+      <h1>ESP8266 Sensor Data</h1>
+      <div style={styles.card}>
+        <h2>Temperature</h2>
+        <p>{temperature} °C</p>
+      </div>
+      <div style={styles.card}>
+        <h2>Humidity</h2>
+        <p>{humidity} %</p>
+      </div>
+    </div>
+  );
 }
 const styles = {
   container: {
