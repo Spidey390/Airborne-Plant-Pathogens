@@ -8,7 +8,7 @@ export default function SensorDashboard() {
         const getData = async () => {
             try {
                 const res = await fetch(
-                    "http://localhost:3000/api/sensor?t=" + Date.now(), // 🔥 prevent cache
+                    "https://airborne-plant-pathogens.onrender.com/api/sensor?t=" + Date.now(), // 🔥 prevent cache
                     { cache: "no-store" }
                 );
 
